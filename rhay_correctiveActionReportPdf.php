@@ -728,6 +728,17 @@ if($identifier==4)
 	}
 
 }
+else if($identifier==2)
+{
+	$sql4 = "SELECT accessoryNumber,accessoryName FROM cadcam_accessories WHERE accessoryId='".$partId."' AND accessoryId > 0";
+	$queryCadcamParts=$db->query($sql4);
+	if($queryCadcamParts AND $queryCadcamParts->num_rows>0)
+	{
+		$resultCadcamParts=$queryCadcamParts->fetch_assoc();
+		$partNumber = $resultCadcamParts['accessoryNumber'];
+		$partName = $resultCadcamParts['accessoryName'];
+	}
+}
 else
 {
 	$sql4 = "SELECT partNumber,partName,materialSpecId FROM cadcam_parts WHERE partId='".$partId."' AND partId > 0";

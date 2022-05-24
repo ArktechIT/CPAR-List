@@ -13,6 +13,18 @@
 	$totalRecords = isset($requestData['totalRecords']) ? $requestData['totalRecords'] : '';
 	
 	$exportFlag = (isset($_POST['exportFlag'])) ? $_POST['exportFlag'] : '';
+
+	$editFlag = 0;
+	$sql = "
+		SELECT * FROM system_userpermission a
+		INNER JOIN system_permissiondetails b ON b.permissionId = a.permissionId
+		WHERE b.permissionName LIKE '%leader%' AND a.idNumber LIKE '".$_SESSION['idNumber']."'
+	";
+	$query = $db->query($sql);
+	if($query AND $query->num_rows > 0)
+	{
+		$editFlag = 1;
+	}
 	
 	$totalData = $totalRecords;
 	$totalFiltered = $totalRecords;
@@ -312,7 +324,7 @@
 			}
 			
 			$action = "";
-			if($_SESSION['idNumber'] == '0291' OR $_SESSION['idNumber'] == '0282' OR $_SESSION['idNumber'] == '0197' OR $_SESSION['idNumber'] == '0228' OR $_SESSION['idNumber'] == '0215' OR $_SESSION['idNumber'] == '0063' OR $_SESSION['userID'] == 'ariel' OR $_SESSION['userID'] == 'isabel' OR $_SESSION['userID'] == 'freya' OR $_SESSION['userType'] == '0' OR $_SESSION['userType'] == '10' AND (isset($_SESSION['userID'])))
+			if(($_SESSION['idNumber'] == '0291' OR $_SESSION['idNumber'] == '0282' OR $_SESSION['idNumber'] == '0197' OR $_SESSION['idNumber'] == '0228' OR $_SESSION['idNumber'] == '0215' OR $_SESSION['idNumber'] == '0063' OR $_SESSION['userID'] == 'ariel' OR $_SESSION['userID'] == 'isabel' OR $_SESSION['userID'] == 'freya' OR $_SESSION['userType'] == '0' OR $_SESSION['userType'] == '10' OR $editFlag==1) AND (isset($_SESSION['userID'])))
 			{
 				$action .=  "<a href = 'anthony_cparEdit.php?cparId=".$listId."'><img src='images/edit1.png' width='18' height='18' alt='Edit' title='Edit'></a>";
 			}

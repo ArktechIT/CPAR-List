@@ -772,7 +772,7 @@
 					
 					if($insertSubconPoFlag==0)
 					{
-						$sql = "SELECT id FROM ppic_workschedule WHERE lotNumber LIKE '".$lotNumber."' AND processCode = 461 AND status = 0 LIMIT 1";
+						$sql = "SELECT id FROM ppic_workschedule WHERE lotNumber LIKE '".$lotNumber."' AND processCode IN(461,597) AND status = 0 LIMIT 1";
 						$queryWorkSchedule = $db->query($sql);
 						if($queryWorkSchedule AND $queryWorkSchedule->num_rows > 0)
 						{
